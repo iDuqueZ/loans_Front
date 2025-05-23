@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.31.6",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.49.8",
     "@tailwindcss/vite": "^4.1.7",
     "date-fns": "^4.1.0",
     "react": "^19.1.0",
