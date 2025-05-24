@@ -3,8 +3,8 @@ import { FaUser, FaMoneyBillWave, FaCalendarAlt, FaPercentage } from 'react-icon
 
 export default function DebtCard({ debt, onClick }) {
   const calculateTotal = () => {
-    const interest = debt.interest ? debt.amount * (debt.interest / 100) : 0;
-    return debt.amount + interest;
+    const interest = debt.interes ? debt.valor * (debt.interes / 100) : 0;
+    return debt.valor + interest;
   };
 
   const formatAmount = (amount) => {
@@ -17,40 +17,40 @@ export default function DebtCard({ debt, onClick }) {
 
   return (
     <div 
-      className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+      className="bg-zinc-800 rounded-xl shadow-lg p-6 border border-zinc-700 cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:border-zinc-600"
       onClick={onClick}
     >
       <div className="flex justify-between items-start mb-4">
-        <h3 className="font-bold text-xl text-gray-800 truncate pr-2">{debt.title}</h3>
-        <span className="px-3 py-1 bg-blue-50 text-blue-700 text-sm font-medium rounded-full">
-          {format(new Date(debt.date), 'dd/MM/yyyy')}
+        <h3 className="font-bold text-xl text-white truncate pr-2">{debt.concepto}</h3>
+        <span className="px-3 py-1 bg-green-900/30 text-green-400 text-sm font-medium rounded-full border border-green-800/50">
+          {format(new Date(debt.fecha_creacion), 'dd/MM/yyyy')}
         </span>
       </div>
       
       <div className="space-y-3">
-        <div className="flex items-center text-gray-600">
-          <FaUser className="mr-2 text-blue-500" />
-          <span className="font-medium text-gray-700">{debt.debtor}</span>
+        <div className="flex items-center text-zinc-300">
+          <FaUser className="mr-2 text-green-500" />
+          <span className="font-medium text-white">{debt.deudor}</span>
         </div>
         
-        <div className="flex items-center text-gray-600">
-          <FaMoneyBillWave className="mr-2 text-blue-500" />
+        <div className="flex items-center text-zinc-300">
+          <FaMoneyBillWave className="mr-2 text-green-500" />
           <span>Monto: </span>
-          <span className="ml-1 font-medium text-gray-800">{formatAmount(debt.amount)}</span>
+          <span className="ml-1 font-medium text-white">{formatAmount(debt.valor)}</span>
         </div>
         
-        {debt.interest && (
-          <div className="flex items-center text-gray-600">
-            <FaPercentage className="mr-2 text-blue-500" />
+        {debt.interes && (
+          <div className="flex items-center text-zinc-300">
+            <FaPercentage className="mr-2 text-green-500" />
             <span>Interés: </span>
-            <span className="ml-1 font-medium text-gray-800">{debt.interest}%</span>
+            <span className="ml-1 font-medium text-white">{debt.interes}</span>
           </div>
         )}
         
-        <div className="pt-3 mt-3 border-t border-gray-100">
+        <div className="pt-3 mt-3 border-t border-zinc-700">
           <div className="flex justify-between items-center">
-            <span className="font-medium text-gray-700">Total a pagar:</span>
-            <span className="text-lg font-bold text-blue-600">{formatAmount(calculateTotal())}</span>
+            <span className="font-medium text-zinc-300">Total a pagar:</span>
+            <span className="text-lg font-bold text-green-400">{formatAmount( calculateTotal())}</span>
           </div>
         </div>
       </div>
