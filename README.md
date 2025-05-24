@@ -1,59 +1,12 @@
-# FRONT LOANS - Gestor de Deudas 💰
+# React + Vite
 
-👉 [Repositorio oficial del proyecto](https://github.com/miusuario/backend)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Aplicación web para administrar deudas personales, construida con:
-- ⚛️ React + Vite
-- 🎨 Tailwind CSS
-- 📦 LocalStorage (persistencia)
-- 🧩 Context API
+Currently, two official plugins are available:
 
-## Historias de Usuario ✅
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### HU-01: Visualizar pagos pendientes
-- [x] Pestaña "Pagos Pendientes"
-- [x] Cards con título, deudor y monto
-- [ ] Ordenamiento por fecha
-- [x] Cálculo automático de intereses
+## Expanding the ESLint configuration
 
-### HU-02: Crear nueva deuda
-- [x] Botón flotante (+)
-- [x] Formulario con validación
-- [x] Campos: Deudor, Monto, Interés, Fecha
-- [x] Persistencia en LocalStorage
-
-### HU-03: Detalle y gestión de deudas
-- [x] Modal al hacer clic en card
-- [x] Visualización completa de datos
-- [x] Botones: Eliminar/Modificar
-- [x] Historial de cambios
-- [ ] Animaciones de transición (opcional)
-
-### HU-04: Mis deudas (por implementar)
-- [ ] Pestaña separada
-- [ ] Visualización como acreedor
-- [ ] Mismas funcionalidades que HU-01/03
-
-### HU-05: Modificar deudas
-- [x] Formulario editable
-- [x] Actualización de historial
-- [x] Persistencia de cambios
-
-### HU-06: Cancelar deudas
-- [x] Confirmación antes de eliminar
-- [x] Eliminación de LocalStorage
-- [ ] Opción de comentario (opcional)
-
-### HU-07: Navegación entre secciones
-- [x] Tabs para "Pagos Pendientes"
-- [ ] Tab para "Mis Deudas" (pendiente)
-- [ ] Indicador visual activo
-
-## Cómo ejecutar 🚀
-
-1. Clona el repositorio:
-```bash
-git clone [tu-repo-url]
-cd loans-app
-npm i
-npm run dev
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
