@@ -25,88 +25,52 @@ function App() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Función para manejar la sesión
-  const handleSession = useCallback(async () => {
-    try {
-      // 1. Obtener la sesión actual
-      const { data: { session: currentSession }, error } = await supabase.auth.getSession();
-      
-      if (error) throw error;
-      
-      
-      return currentSession;
-    } catch (error) {
-      console.error('Error al obtener la sesión:', error);
-      return null;
-    }
-  }, []);
-
-  // Función para actualizar el estado de la sesión
-  const updateSessionState = useCallback(async () => {
-    const currentSession = await handleSession();
-    setSession(currentSession);
-    setLoading(false);
-  }, [handleSession]);
-
+  // Efecto para manejar la autenticación
   useEffect(() => {
     let mounted = true;
-    let authSubscription = null;
-
-    const initializeAuth = async () => {
-      // Cargar la sesión inicial
-      const currentSession = await handleSession();
-      
-      if (mounted) {
-        setSession(currentSession);
-        setLoading(false);
-      }
-
-      // Suscribirse a cambios en la autenticación
-      const { data: { subscription } } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          
-          // Actualizar la sesión basada en el evento
-          if (mounted) {
-            setSession(session);
-            setLoading(false);
-          }
+    
+    // Función para obtener la sesión actual
+    const getInitialSession = async () => {
+      try {
+        const { data: { session: currentSession }, error } = await supabase.auth.getSession();
+        
+        if (error) throw error;
+        
+        if (mounted) {
+          setSession(currentSession);
+          setLoading(false);
         }
-      );
-
-      authSubscription = subscription;
-    };
-
-    // Inicializar autenticación
-    initializeAuth();
-
-    // Manejar el evento de visibilidad de la página
-    const handleVisibilityChange = async () => {
-      if (document.visibilityState === 'visible' && mounted) {
-        console.log('Pestaña visible, verificando sesión...');
-        await updateSessionState();
+      } catch (error) {
+        console.error('Error al obtener la sesión inicial:', error);
+        if (mounted) {
+          setSession(null);
+          setLoading(false);
+        }
       }
     };
 
-    // Agregar event listener para cambios de visibilidad
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    // Obtener la sesión inicial
+    getInitialSession();
 
-    // Configurar un intervalo para verificar la sesión periódicamente
-    const sessionCheckInterval = setInterval(async () => {
-      if (document.visibilityState === 'visible' && mounted) {
-        await updateSessionState();
+    // Suscribirse a cambios en la autenticación
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, newSession) => {
+        console.log('Evento de autenticación:', event);
+        console.log('Nueva sesión:', newSession);
+        
+        if (mounted) {
+          setSession(newSession);
+          setLoading(false);
+        }
       }
-    }, 300000); // Verificar cada 5 minutos
+    );
 
-    // Limpiar suscripciones y event listeners al desmontar
+    // Limpiar suscripción al desmontar
     return () => {
       mounted = false;
-      if (authSubscription?.unsubscribe) {
-        authSubscription.unsubscribe();
-      }
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      clearInterval(sessionCheckInterval);
+      subscription?.unsubscribe();
     };
-  }, [handleSession, updateSessionState]);
+  }, []);
 
   if (loading) {
     return (
@@ -115,6 +79,8 @@ function App() {
       </div>
     );
   }
+  
+  console.log('Estado de la sesión:', session ? 'Autenticado' : 'No autenticado');
 
   // Página de autenticación
   if (!session) {
@@ -143,6 +109,9 @@ function App() {
               }}
               providers={['google', 'github']}
               theme="dark"
+              onlyThirdPartyProviders={false}
+              view="sign_in"
+              redirectTo={window.location.origin}
             />
           </div>
         </div>

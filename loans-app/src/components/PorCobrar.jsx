@@ -10,7 +10,7 @@ const PorCobrarComponent = ({ user }) => {
         <div>
             {/* Barra superior */}
             <div className="container mx-auto items-center">
-                <h1 className="text-2xl font-bold text-purple-500">
+                <h1 className="text-2xl font-bold text-green-500">
                     Pagame Ve
                 </h1>
             </div>
@@ -26,7 +26,7 @@ const PorCobrarComponent = ({ user }) => {
             
             <FloatingButton 
                 onClick={() => setShowForm(true)}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
             />
             
             {showForm && (

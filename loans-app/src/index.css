@@ -3,3 +3,9 @@
 body {
   @apply bg-zinc-800 text-gray-800;
 }
+
+input {
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: textfield;
+}
