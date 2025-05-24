@@ -20,10 +20,10 @@ export function useSaveDebt() {
 
   const saveDebt = useMutation({
     mutationFn: async (debtData) => {
-      const { email, ...debt } = debtData;
+      const { deudor_email, ...debt } = debtData;
       
       // Buscar el ID del usuario por email
-      const deudor_id = await findUserByEmail(email);
+      const deudor_id = await findUserByEmail(deudor_email);
 
       // Preparar los datos de la deuda
       const debtToSave = {
